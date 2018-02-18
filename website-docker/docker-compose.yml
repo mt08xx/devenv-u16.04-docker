@@ -1,0 +1,40 @@
+php:
+  build: .
+  #image: php:5.6-apache
+  container_name: php
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+    - ./www:/var/www/html
+    - ./keys/server.key:/etc/apache2/server.key
+    - ./keys/server.crt:/etc/apache2/server.crt
+    - ./ssl.conf:/etc/apache2/sites-available/ssl.conf
+  links:
+    - mysql
+mysql:
+  image: mysql:5.6
+  container_name: mysql
+  volumes:
+    - ./mysql-data:/var/lib/mysql
+    - ./mysql-cnf:/etc/mysql/conf.d
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+  ports:
+    - "3306:3306"
+pma:
+  image: phpmyadmin/phpmyadmin
+  container_name: phpmyadmin
+  ports:
+   - "8080:80"
+  volumes:
+    - ./mysql-data:/var/lib/mysql
+    - ./mysql-cnf:/etc/mysql/conf.d
+  environment:
+    PMA_ARBITARY: 1
+    PMA_HOST: mysql
+    PMA_USER: phpmyadmin
+    PMA_PASSWORD: password
+  links:
+    - mysql

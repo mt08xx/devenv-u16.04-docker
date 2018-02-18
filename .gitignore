@@ -1,0 +1,10 @@
+# OS-specific
+.DS_Store
+
+# Vagrant stuff
+/.vagrant
+
+# Others
+full.sql.bz2
+id_rsa*
+*.log
