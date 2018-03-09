@@ -1,0 +1,6 @@
+matlab:
+  build: .
+  container_name: matlab
+  volumes:
+   - /opt/MATLAB:/opt/MATLAB
+   - .:/var/log/matlab

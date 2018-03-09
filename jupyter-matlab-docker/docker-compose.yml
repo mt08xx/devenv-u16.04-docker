@@ -1,0 +1,15 @@
+matlab:
+  build: .
+  container_name: jupyter_matlab
+  user: root
+  ports:
+    - 8888:8888
+  volumes:
+   - /opt/MATLAB:/opt/MATLAB
+   - .:/var/log/matlab mt08/matlab
+   - ./work:/home/jovyan/work
+  environment:
+    NB_UID: 1000
+    GRANT_SUDO: "yes"
+    #JUPYTER_ENABLE_LAB: 1
+  command: start-notebook.sh --NotebookApp.password='sha1:5790d53d01b1:90fa6b8d8cf3c3ec9a53371b198912642569e6ad' #password = 'password'
